@@ -15,19 +15,83 @@
 			</view>
 			<button class="username">七月</button>
 		</view>
+		<scroll-view class="navScroll" scroll-x="true" enable-flex="true">
+			<view 
+			class="navItem"
+			:class="navIndex===-1?'active':''"
+			@click="changeNavIndex(-1)"
+			>
+				推荐
+			</view>
+			<view 
+			class="navItem" 
+			:class="{
+				active:navIndex===index
+			}"
+			@click="changeNavIndex(index)"
+			v-for="(item,index) in indexData.kingKongModule.kingKongList"
+			:key="item.L1Id"
+			>
+				{{item.text}}
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {}
+			return {
+				indexData:{},
+				navIndex:-1
+			}
 		},
-		onLoad() {
-			
+		/*
+			请求必须搞懂的三件事情
+				1.在哪发
+					Vue->mounted和created
+					小程序->onLoad
+					
+					uniapp兼容Vue和小程序的生命周期,选择顺手的即可
+					
+				2.怎么发
+					Vue->axios和ajax
+					小程序->wx.request
+					
+					uniapp支持小程序所有的API,全局对象是uni,API选择使用小程序的
+					
+				3.往哪发
+					查看接口文档
+						请求重要的三个要素
+							请求地址+请求方式+请求参数
+		*/
+		// onLoad() {
+		// 	console.log('------onLoad------')
+		// },
+		// created(){
+		// 	console.log('created')
+		// },
+		mounted(){
+			// console.log('mounted')
+			uni.request({
+				url:"http://localhost:3000/getIndexData",
+				// method:"GET",
+				success:(res)=>{
+					// console.log('res',res)
+					const data = res.data;
+					// this.setData({
+					// 	indexData:data
+					// })
+					
+					// uniapp中核心语法全部是使用Vue的
+					this.indexData = data;
+				}
+			})
 		},
 		methods:{
-			
+			changeNavIndex(index){
+				this.navIndex = index;
+			}
 		}
 	}
 	
@@ -70,7 +134,19 @@
 				font-size 24upx
 				margin 0 20upx
 				color red
-			
+		.navScroll
+			// display flex
+			white-space nowrap
+			.navItem
+				display inline-block
+				width 140upx
+				height 80upx
+				font-size 28upx
+				text-align center
+				line-height 80upx
+				flex-shrink 0
+				&.active
+					border-bottom 4upx solid red
 		
 	
 </style>

@@ -136,7 +136,27 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -159,12 +179,58 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   data: function data() {
-    return {};
-  },
-  onLoad: function onLoad() {
+    return {
+      indexData: {},
+      navIndex: -1 };
 
   },
-  methods: {} };exports.default = _default;
+  /*
+     	请求必须搞懂的三件事情
+     		1.在哪发
+     			Vue->mounted和created
+     			小程序->onLoad
+     			
+     			uniapp兼容Vue和小程序的生命周期,选择顺手的即可
+     			
+     		2.怎么发
+     			Vue->axios和ajax
+     			小程序->wx.request
+     			
+     			uniapp支持小程序所有的API,全局对象是uni,API选择使用小程序的
+     			
+     		3.往哪发
+     			查看接口文档
+     				请求重要的三个要素
+     					请求地址+请求方式+请求参数
+     */
+  // onLoad() {
+  // 	console.log('------onLoad------')
+  // },
+  // created(){
+  // 	console.log('created')
+  // },
+  mounted: function mounted() {var _this = this;
+    // console.log('mounted')
+    uni.request({
+      url: "http://localhost:3000/getIndexData",
+      // method:"GET",
+      success: function success(res) {
+        // console.log('res',res)
+        var data = res.data;
+        // this.setData({
+        // 	indexData:data
+        // })
+
+        // uniapp中核心语法全部是使用Vue的
+        _this.indexData = data;
+      } });
+
+  },
+  methods: {
+    changeNavIndex: function changeNavIndex(index) {
+      this.navIndex = index;
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
