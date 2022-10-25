@@ -1,0 +1,22 @@
+1.作为网页运行
+	HBuilderX中
+		工具->设置->运行配置->找到浏览器运行配置->填写Chrome浏览器安装路径
+
+		参考路径:C:/Program Files (x86)/Google/Chrome/Application/chrome.exe
+		
+		如何快速找到软件的安装地址?
+			右键软件图标->属性->目标
+				"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+
+2.作为小程序运行
+	HBuilderX中
+		工具->设置->运行配置->找到小程序运行配置->填写微信开发者工具路径
+		
+		注意:路径只需要填写安装exe的文件夹即可,不需要写到exe文件
+
+	小程序配置
+		设置->安全设置->开启"服务端口"
+
+
+3.统一配置
+	小程序设置->编辑器设置->关闭"修改文件时自动保存"
