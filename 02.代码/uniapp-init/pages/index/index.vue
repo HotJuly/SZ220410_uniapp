@@ -40,11 +40,15 @@
 				{{item.text}}
 			</view>
 		</scroll-view>
+		<scroll-view class="contentScroll" scroll-y="true" >
+			<Recommend :indexData="indexData"/>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	import myAxios from '../../utils/myAxios.js'
+	import Recommend from '../../components/Recommend/Recommend.vue'
 	export default {
 		data() {
 			return {
@@ -87,6 +91,9 @@
 			changeNavIndex(index){
 				this.navIndex = index;
 			}
+		},
+		components:{
+			Recommend
 		}
 	}
 	
@@ -142,6 +149,15 @@
 				flex-shrink 0
 				&.active
 					border-bottom 4upx solid red
-		
-	
+		.contentScroll
+		// 小程序height= 页面百分百高度 - header高度 - nav高度
+		// height calc(100vh - 80upx - 84upx)
+		// 网页height = 手机百分百高度 - header高度 - nav高度 - 顶部导航栏高度 - tabBar高度
+			height calc(100vh - 80upx - 84upx - var(--window-top) - var(--window-bottom))
+		// /* #ifdef H5 */
+		// 	height calc(100vh - 80upx - 84upx - 88upx - 100upx)
+		// /* #endif */
+		// /* #ifdef MP-WEIXIN */
+		// 	height calc(100vh - 80upx - 84upx)
+		// /* #endif */
 </style>
