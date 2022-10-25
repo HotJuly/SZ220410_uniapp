@@ -1,21 +1,24 @@
 import App from './App'
 
-// #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
+
+// 小程序中对应用,页面,组件三者概念区分的非常清楚
+// mp->mini program type->类型 App代表整个小程序
 App.mpType = 'app'
+
 const app = new Vue({
     ...App
+	// {
+	// 	onLaunch: function() {
+	// 		console.log('App Launch')
+	// 	},
+	// 	onShow: function() {
+	// 		console.log('App Show')
+	// 	},
+	// 	onHide: function() {
+	// 		console.log('App Hide')
+	// 	}
+	// }
 })
 app.$mount()
-// #endif
-
-// #ifdef VUE3
-import { createSSRApp } from 'vue'
-export function createApp() {
-  const app = createSSRApp(App)
-  return {
-    app
-  }
-}
-// #endif
