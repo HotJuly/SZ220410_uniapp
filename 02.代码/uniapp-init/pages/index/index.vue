@@ -15,7 +15,12 @@
 			</view>
 			<button class="username">七月</button>
 		</view>
-		<scroll-view class="navScroll" scroll-x="true" enable-flex="true">
+		<scroll-view 
+		v-if="indexData.kingKongModule"
+		class="navScroll" 
+		scroll-x="true" 
+		enable-flex="true"
+		>
 			<view 
 			class="navItem"
 			:class="navIndex===-1?'active':''"
@@ -39,6 +44,7 @@
 </template>
 
 <script>
+	import myAxios from '../../utils/myAxios.js'
 	export default {
 		data() {
 			return {
@@ -71,22 +77,11 @@
 		// created(){
 		// 	console.log('created')
 		// },
-		mounted(){
+		async mounted(){
 			// console.log('mounted')
-			uni.request({
-				url:"http://localhost:3000/getIndexData",
-				// method:"GET",
-				success:(res)=>{
-					// console.log('res',res)
-					const data = res.data;
-					// this.setData({
-					// 	indexData:data
-					// })
-					
-					// uniapp中核心语法全部是使用Vue的
-					this.indexData = data;
-				}
-			})
+			const result = await myAxios("/getIndexData");
+			// console.log('result',result)
+			this.indexData = result;
 		},
 		methods:{
 			changeNavIndex(index){

@@ -1,0 +1,11 @@
+uniapp解决跨域问题的三种方法:
+	1.使用HBuilderX内置浏览器(使用频率最低)
+
+	2.使用代理解决(使用频率最高)
+		vue-cli脚手架->vue.config.js
+		vite脚手架->vite.config.js
+
+		文档参考对应的脚手架官方文档
+
+	3.在manifest.json中进行h5特有配置(使用频率中等)
+		文档参考webpack官方
