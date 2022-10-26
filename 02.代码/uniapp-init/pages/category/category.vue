@@ -9,72 +9,28 @@
 			<view class="leftContainer">
 				<scroll-view scroll-y="true" class="navScroll">
 					<view 
-					class="navItem active"
-					v-for="item in categoryNames"
+					class="navItem"
+					:class="{
+						active:navIndex === index
+					}"
+					v-for="(item,index) in categoryNames"
 					:key="item"
+					@click="changeNavIndex(index)"
 					>{{item}}</view>
 				</scroll-view>
 			</view>
 			<view class="rightContainer">
 				<scroll-view scroll-y="true" class="contentScroll">
 					<view class="scrollHeader">
-						<image class="headerImg" src="https://yanxuan.nosdn.127.net/9fafb4adb40303dc2914c3aa04da03df.jpg?quality=75&type=webp&imageView&thumbnail=0x196" mode=""></image>
+						<image class="headerImg" :src="categoryObj.imgUrl" mode=""></image>
 					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
-					</view>
-					<view class="contentItem">
-						<image src="http://yanxuan.nosdn.127.net/749f0ba087d2035b6d2937b4919952de.png" mode=""></image>
-						<text>秋冬好物</text>
+					<view 
+					class="contentItem"
+					v-for="item in categoryObj.subCateList"
+					:key="item.id"
+					>
+						<image :src="item.wapBannerUrl" :data-src="item.wapBannerUrl" mode=""></image>
+						<text>{{item.name}}</text>
 					</view>
 				</scroll-view>
 			</view>
@@ -86,7 +42,8 @@
 	export default {
 		data() {
 			return {
-				categoryDatas:[]
+				categoryDatas:[],
+				navIndex:0
 			};
 		},
 		async created(){
@@ -131,8 +88,16 @@
 				return this.categoryDatas.map((item)=>{
 					return item.name
 				})
+			},
+			categoryObj(){
+				return this.categoryDatas[this.navIndex]
 			}
 		},
+		methods:{
+			changeNavIndex(index){
+				this.navIndex = index;
+			}
+		}
 		// watch:{
 		// 	a(){
 				

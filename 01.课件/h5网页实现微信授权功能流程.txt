@@ -1,0 +1,43 @@
+1.当用户触发了我们网页中的某些功能,需要使用到用户的个人信息的时候
+	我们的网页会调用对应的函数代码,准备开始获取用户授权
+
+	我们需要准备的数据:
+		1.callbackUrl
+			该接口由后端提供,该接口的用处就是在用户授权成功之后,微信官方会将用户信息传给当前接口
+			举例:https://pk.xxx.cn/pk/wechat/getUserInfoCallback
+
+		2.state
+			当前本次网页中需要使用到数据,暂时不用管它
+
+		3.wechatId
+			其实就是当前公司的项目的APPID,可以证明自己是哪个公司的
+
+		4.redirectURI
+			这个地址是微信官方提供的接口地址,需要将上述三个数据传入当前接口
+
+	我们使用window.location.href=redirectURI,可以控制当前微信浏览器进行跳转,请求微信官方对应的接口
+		如果是在微信官方的浏览器中跳转该链接,就会自动弹出授权窗口,用户如果点击允许,那么就会进入流程2,我们开始获取用户数据
+
+	我们项目地址:http://www.baidu.com
+	发生跳转之后:https://open.weixin.qq.com
+
+2.当用户点击了允许获取用户授权,那么微信浏览器,就会自动跳转到流程1的callbackURL地址上
+	微信官方会将用户的临时登录凭证(用户标识),通过query传参拼接在callbackURL中
+
+	我们项目地址:https://open.weixin.qq.com
+	发生跳转之后:https://pk.xxx.cn/pk/wechat/getUserInfoCallback?code=xxxxxxxxxxxxxxxxxxxxxxxxx
+
+3.后端通过流程2,可以获取到用户的临时登录凭证code
+	后端发送请求给微信官方,将code码兑换成用户的唯一标识token
+
+4.后端通过流程3,可以获取到用户唯一标识token
+	后端再次发送请求给微信官方,将token字符串兑换成用户的个人信息数据
+
+5.后端获取到个人信息之后,通过流程2的请求,返回响应数据给微信浏览器
+	后端会将浏览器的地址重定向回到我们的项目网址上,并且在地址中拼接获取到的个人信息数据
+
+	我们项目地址:https://pk.xxx.cn/pk/wechat/getUserInfoCallback?code=xxxxxxxxxxxxxxxxxxxxxxxxx
+	发生跳转之后:http://www.baidu.com?token=xxxxxxx
+
+
+参考地址:https://blog.csdn.net/z9061/article/details/105988489

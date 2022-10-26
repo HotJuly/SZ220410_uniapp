@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" src="" alt="" srcset="">
+    <script>
+        var img1 = document.createElement('img');
+        var img = document.querySelector('#img');
+        img1.src="https://yanxuan.nosdn.127.net/7df1fb797a6c7ba34ccb5cacde7d3e99.jpg?type=webp&imageView&quality=75&thumbnail=0x196"
+        img1.onload=function(){
+            img.src=img1.src;
+        }
+    </script>
+</body>
+</html>
